@@ -1,6 +1,8 @@
 const CONNECTIVES = ["->", "\\/", "/\\", "!"];
 
 
+// TESTESTESTESTESTEESTESTESTE
+
 function getInput() {
     document.getElementById('stringForm').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -19,7 +21,7 @@ function validInput(array) {
     //check if expression includes at least one var and always one more var than connective (except negation)
 
     if (array[0] === "") return false; // check if the input is empty
-    
+
     let varCounter = 0;
     let conneCounter = 0;
     for (let i = 0; i < array.length; i++) {
