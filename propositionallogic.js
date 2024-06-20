@@ -11,6 +11,7 @@ function getInput() {
             document.getElementById('inputString').value = null;
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
         } else {
+            document.getElementById('label').innerText = "Enter a logical expression:";
             generateTable(logEx);
         }
     });
