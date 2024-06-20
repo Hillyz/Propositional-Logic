@@ -13,7 +13,11 @@
     <h1>Propositional logic truth table generator</h1>
     <form id="stringForm">
         <label for="inputString" id="label">Enter a logical expression:</label><br>
-        <input type="text" id="inputString" name="inputString"><br><br>
+        <input type="text" id="inputString" name="inputString"><br>
+        <button  type="button" onclick="addConnective('¬')">¬</button>
+        <button  type="button" onclick="addConnective('∧')">∧</button>
+        <button  type="button" onclick="addConnective('∨')">∨</button>
+        <button  type="button" onclick="addConnective('→')">→</button><br><br>
         <input type="submit" value="Generate">
     </form>
     <h2>Truth table</h2>

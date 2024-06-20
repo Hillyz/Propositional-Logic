@@ -1,13 +1,12 @@
-const CONNECTIVES = ["->", "\\/", "/\\", "!"];
+const CONNECTIVES = ["→", "∨", "∧", "¬"];
 
 
-// TESTESTESTESTESTEESTESTESTE
 
 function getInput() {
     document.getElementById('stringForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const inputString = document.getElementById('inputString').value;
-        const logEx = inputString.split(' ');
+        const logEx = inputString.replaceAll(" ", "").split('');
         if (!validInput(logEx)) {
             document.getElementById('inputString').value = null;
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
@@ -15,6 +14,10 @@ function getInput() {
             generateTable(logEx);
         }
     });
+}
+
+function addConnective(connective) {
+    document.getElementById("inputString").value += connective;
 }
 
 function validInput(array) {
@@ -111,16 +114,16 @@ function getConnective(array) {
 // Works for expressions with 2 or less variables
 function calculate(connective, values) {
     if (typeof connective === "undefined") return values.charAt(0);
-    if (connective === "!") {
+    if (connective === "¬") {
         if (values.charAt(0) === "1") return "0";
         return "1";
-    } else if (connective === "->") {
+    } else if (connective === "→") {
         if (values.charAt(0) === "1" && values.charAt(1) === "0") return "0";
         else return "1";
-    } else if (connective === "\\/") {
+    } else if (connective === "∨") {
         if (values.charAt(0) === "0" && values.charAt(1) === "0") return "0";
         else return "1";
-    } else if (connective === "/\\") {
+    } else if (connective === "∧") {
         if (values.charAt(0) === "1" && values.charAt(1) === "1") return "1";
         else return "0";
     }
