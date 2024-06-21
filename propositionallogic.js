@@ -82,7 +82,6 @@ function generateHeadRow(table, headerArray) {
     tableRow.appendChild(propEx);
     table.appendChild(tableRow);
 
-    generated = true;
     return variablesNum;
 }
 
@@ -118,7 +117,6 @@ function getConnective(array) {
 
 // Works for expressions with 2 or less variables
 function calculate(connective, values) {
-    console.log(values);
     if (typeof connective === "undefined") return values.charAt(0);
     if (connective === "¬") {
         if (values.charAt(0) === "1") return "0";
