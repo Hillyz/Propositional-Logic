@@ -31,14 +31,14 @@ function validInput(array) {
     for (let i = 0; i < array.length; i++) {
         const element = array[i];
         if (CONNECTIVES.includes(element)) conneCounter++;
-        else varCounter++; 
+        else varCounter++;
     }
     if (varCounter < 1) return false;
     else if (varCounter === 1) {
         if (conneCounter <= 1) return true;
         else return false;
     }
-    return varCounter-conneCounter === 1;
+    return varCounter - conneCounter === 1;
 }
 
 function generateTable(array) {
@@ -61,13 +61,17 @@ function generateHeadRow(table, headerArray) {
     const tableRow = document.createElement("tr");
     tableRow.setAttribute("id", "headrow");
 
+    uniqueVars = new Set();
+
     for (let index = 0; index < headerArray.length; index++) {
         const header = headerArray[index];
-        if (!CONNECTIVES.includes(header)) {
+        if (!CONNECTIVES.includes(header) && !uniqueVars.has(header)) {
             const tableHead = document.createElement("th");
             tableHead.setAttribute("id", "head" + index);
             tableHead.innerHTML = header;
             tableRow.appendChild(tableHead);
+
+            uniqueVars.add(header);
             variablesNum++;
         }
     }
@@ -114,17 +118,21 @@ function getConnective(array) {
 
 // Works for expressions with 2 or less variables
 function calculate(connective, values) {
+    console.log(values);
     if (typeof connective === "undefined") return values.charAt(0);
     if (connective === "¬") {
         if (values.charAt(0) === "1") return "0";
         return "1";
     } else if (connective === "→") {
+        if (values.length === 1) return "1";
         if (values.charAt(0) === "1" && values.charAt(1) === "0") return "0";
         else return "1";
     } else if (connective === "∨") {
+        if (values.length === 1) return values.charAt(0);
         if (values.charAt(0) === "0" && values.charAt(1) === "0") return "0";
         else return "1";
     } else if (connective === "∧") {
+        if (values.length === 1) return values.charAt(0);
         if (values.charAt(0) === "1" && values.charAt(1) === "1") return "1";
         else return "0";
     }
