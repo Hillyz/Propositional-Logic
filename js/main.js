@@ -6,12 +6,12 @@ function getInput() {
         event.preventDefault();
         const inputString = document.getElementById('inputString').value;
         const logEx = inputString.replaceAll(" ", "").split('');
-        if (!validInput(logEx)) {
-            document.getElementById('inputString').value = null;
-            document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
-        } else {
-            document.getElementById('label').innerText = "Enter a logical expression:";
+        document.getElementById('label').innerText = "Enter a logical expression:";
+        try {
             generateTable(logEx);
+        } catch (err) {
+            document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
+            console.log(err);
         }
     });
 }
@@ -29,13 +29,6 @@ function buttonEvents() {
         addConnective('→');
     }, false);
 }
-
-//UP NEXT
-function validInput(array) {
-    return true;
-    //check if expression includes at least one var and always one more var than connective (except negation)
-}
-
 
 // MAIN
 function main() {
