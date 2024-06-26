@@ -18,17 +18,15 @@ export function generateTable(array) {
 
 function generateHeadRow(table, headerArray) {
     let variablesNum = 0;
+    let uniqueVars = new Set();
 
     const tableRow = document.createElement("tr");
     tableRow.setAttribute("id", "headrow");
-
-    let uniqueVars = new Set();
 
     for (let index = 0; index < headerArray.length; index++) {
         const header = headerArray[index];
         if (!NONVARIABLES.includes(header) && !uniqueVars.has(header)) {
             const tableHead = document.createElement("th");
-            tableHead.setAttribute("id", "head" + index);
             tableHead.innerHTML = header;
             tableRow.appendChild(tableHead);
 
@@ -37,7 +35,6 @@ function generateHeadRow(table, headerArray) {
         }
     }
     const propEx = document.createElement("th"); //final column, propositional expression
-    propEx.setAttribute("id", "propExHeader");
     propEx.innerHTML = document.getElementById('inputString').value;
 
     tableRow.appendChild(propEx);
@@ -49,7 +46,6 @@ function generateHeadRow(table, headerArray) {
 function generateRows(table, varNum, array) {
     const rowNum = Math.pow(2, varNum);
     const binaryCombinations = generateBinary(varNum);
-
 
     for (let row = 0; row < rowNum; row++) {
         let tableRow = document.createElement("tr");
@@ -63,7 +59,6 @@ function generateRows(table, varNum, array) {
         let resultDiv = document.createElement("td");
         let values = binaryCombinations[row];
         const binaryExpression = variableToValues(array, values);
-
 
         resultDiv.innerHTML = solve(binaryExpression);
         tableRow.appendChild(resultDiv);
