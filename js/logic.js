@@ -36,7 +36,6 @@ function toRPN(expression) {
     };
 
     const handleToken = (token) => {
-        let x = 0;
         switch (true) {
             case isBinary(token):
                 addToOutput(token);
