@@ -21,9 +21,23 @@ export function variableToValues(array, binaryCombinations) {
     return newExp;
 }
 
+function negationIsValid(expression) {
+    const invalidNegations = ['→', '∨', '∧'];
+    for (let i = 0; i < expression.length; i++) {
+        const element = expression[i];
+        if (element === '¬') {
+            if (expression[i+1] === undefined || expression[i+1] === null) return false;
+            else if(invalidNegations.includes(expression[i+1])) return false;
+        }
+    }
+    return true;
+}
+
 function toRPN(expression) {
-    const opSymbols = Object.keys(operators);
     expression = expression.replace(/\s+/g, '').split(/([\→\∨\∧\¬\(\)])/).filter(token => token);
+    assert(negationIsValid(expression));
+    
+    const opSymbols = Object.keys(operators);
     const stack = [];
     let output = '';
 
