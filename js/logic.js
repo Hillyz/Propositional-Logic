@@ -150,7 +150,6 @@ function negation(n) {
 function binaryOperation(n1, n2, op) {
     switch (op) {
         case "→":
-            //n2 comes before n1 here because implication is right associative
             if (n2 === '1' && n1 === '0') return '0';
             return '1';
         case "∨":
