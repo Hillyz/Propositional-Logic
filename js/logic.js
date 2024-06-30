@@ -24,7 +24,7 @@ export function variableToValues(array, binaryCombinations) {
 
 function toRPN(expression) {
     expression = expression.replace(/\s+/g, '').split(/([\→\∨\∧\¬\(\)])/).filter(token => token);
-    assert(negationIsValid(expression));
+    assert(expressionIsValid(expression));
 
     const opSymbols = Object.keys(operators);
     const stack = [];
@@ -120,6 +120,23 @@ function negationIsValid(expression) {
         if (element === '¬') {
             if (expression[i + 1] === undefined || expression[i + 1] === null) return false;
             else if (invalidNegations.includes(expression[i + 1])) return false;
+        }
+    }
+    return true;
+}
+
+function expressionIsValid(expression) {
+    const invalidDoubles = ['→', '∨', '∧'];
+    for (let i = 0; i < expression.length; i++) {
+        const element = expression[i];
+        if (element === '¬') {
+            if (expression[i + 1] === undefined || expression[i + 1] === null) return false;
+            else if (invalidDoubles.includes(expression[i + 1])) return false;
+        } else if (invalidDoubles.includes(element)) {
+            if (expression[i + 1] === undefined || expression[i + 1] === null || expression[i + 1] === null)
+                return false;
+            else if (invalidDoubles.includes(expression[i + 1])) return false;
+            else if (invalidDoubles.includes(expression[i - 1])) return false;
         }
     }
     return true;
