@@ -14,6 +14,32 @@ h1 {
   color: #00509e;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#stringForm {
+  margin-right: auto;
+  background-color: #f9f9f9;
+  width: 600px;
+}
+
+#setForm {
+  width: 200px;
+}
+
 form {
   background: #fff;
   padding: 20px;
@@ -71,12 +97,14 @@ form {
 
 #table {
   margin-top: 30px;
+  margin-bottom: 30px;
   width: 90%;
   max-width: 600px;
   border-collapse: collapse;
 }
 
-#table th, #table td {
+#table th,
+#table td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
