@@ -115,6 +115,8 @@ export function solve(expression) {
 
 function expressionIsValid(expression) {
     const invalidDoubles = ['→', '∨', '∧'];
+
+    if (expression.length === 0) return false;
     for (let i = 0; i < expression.length; i++) {
         const element = expression[i];
         if (element === '¬') {
