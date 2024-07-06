@@ -1,5 +1,6 @@
 import { generateTable } from "./table.js";
 import { addConnective } from "./utils.js";
+import { expressions, addToSet } from "./consequence.js";
 
 function getInput() {
     document.getElementById('stringForm').addEventListener('submit', function (event) {
@@ -13,8 +14,13 @@ function getInput() {
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
             console.log(err);
         }
+        document.getElementById("setbutton").addEventListener("click", () => {
+        addToSet(logEx);
+        console.log(expressions);
+    }, false);
     });
 }
+
 function buttonEvents() {
     document.getElementById("¬").addEventListener("click", () => {
         addConnective('¬');
@@ -28,9 +34,9 @@ function buttonEvents() {
     document.getElementById("→").addEventListener("click", () => {
         addConnective('→');
     }, false);
+    
 }
 
-// MAIN
 function main() {
     buttonEvents();
     getInput();

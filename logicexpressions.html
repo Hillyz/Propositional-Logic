@@ -11,15 +11,22 @@
 <body>
 
     <h1>Propositional Logic Calculator</h1>
-    <form id="stringForm">
-        <label for="inputString" id="label">Enter a logical expression:</label><br>
-        <input type="text" id="inputString" name="inputString"><br>
-        <button  type="button" id="¬" class="cbutton">¬</button>
-        <button  type="button" id="∧" class="cbutton">∧</button>
-        <button  type="button" id="∨" class="cbutton">∨</button>
-        <button  type="button" id="→" class="cbutton">→</button><br><br>
-        <input type="submit" class="generatorbutton" value="Generate">
-    </form>
+    <div class="container">
+        <form class="form" id="stringForm">
+            <label for="inputString" id="label">Enter a logical expression:</label><br>
+            <input type="text" id="inputString" name="inputString"><br>
+            <button type="button" id="¬" class="cbutton">¬</button>
+            <button type="button" id="∧" class="cbutton">∧</button>
+            <button type="button" id="∨" class="cbutton">∨</button>
+            <button type="button" id="→" class="cbutton">→</button><br><br>
+            <input type="submit" class="generatorbutton" value="Generate table">
+            <input type="button" id="setbutton" class="generatorbutton" value="Add to set">
+        </form>
+        <form class="form" id="setForm">
+            <label for="setForm" id="test">Set of expressions:</label><br>
+            <input type="text" id="inputString" name="inputString" placeholder="Add expression to set"><br>
+        </form>
+    </div>
     <br><br>
 
     <script type="module" src="./js/main.js"></script>
