@@ -6,16 +6,16 @@ function getInput() {
     document.getElementById('stringForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const inputString = document.getElementById('inputString').value;
-        const logEx = inputString.replaceAll(" ", "").split('');
+        const expression = inputString.replace(/\s+/g, '');
         document.getElementById('label').innerText = "Enter a logical expression:";
         try {
-            generateTable(logEx);
+            generateTable(expression);
         } catch (err) {
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
             console.log(err);
         }
         document.getElementById("setbutton").addEventListener("click", () => {
-        addToSet(logEx);
+        addToSet(expression);
         console.log(expressions);
     }, false);
     });
