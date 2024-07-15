@@ -1,8 +1,8 @@
 import { solve, variableToValues } from "./logic.js";
-import {generateBinary} from "./utils.js";
+import { generateBinary, getUniqueVars } from "./utils.js";
 import { NONVARIABLES } from "./constants.js";
 
-export function generateTable(array) {
+export function generateTable(expression) {
     if (document.getElementById("table") !== null) {
         let tbl = document.getElementById("table");
         tbl.parentNode.removeChild(tbl);
@@ -11,39 +11,32 @@ export function generateTable(array) {
     const table = document.createElement("table");
     table.setAttribute("id", "table");
 
-    const variablesNum = generateHeadRow(table, array);
-    generateRows(table, variablesNum, array);
+    generateHeadRow(table, expression);
+    const variablesNum = getUniqueVars(expression).size;
+    generateRows(table, variablesNum, expression);
     document.body.appendChild(table);
 }
 
-function generateHeadRow(table, headerArray) {
-    let variablesNum = 0;
-    let uniqueVars = new Set();
+function generateHeadRow(table, expression) {
+    const uniqueVars = getUniqueVars(expression);
 
     const tableRow = document.createElement("tr");
     tableRow.setAttribute("id", "headrow");
 
-    for (let index = 0; index < headerArray.length; index++) {
-        const header = headerArray[index];
-        if (!NONVARIABLES.includes(header) && !uniqueVars.has(header)) {
-            const tableHead = document.createElement("th");
-            tableHead.innerHTML = header;
-            tableRow.appendChild(tableHead);
-
-            uniqueVars.add(header);
-            variablesNum++;
-        }
+    for (const variable of uniqueVars) {
+        const tableHead = document.createElement("th");
+        tableHead.innerHTML = variable;
+        tableRow.appendChild(tableHead);
     }
-    const propEx = document.createElement("th"); //final column, propositional expression
-    propEx.innerHTML = document.getElementById('inputString').value;
 
-    tableRow.appendChild(propEx);
+    const expressionHeader = document.createElement("th"); //final column, propositional expression
+    expressionHeader.innerHTML = document.getElementById('inputString').value;
+
+    tableRow.appendChild(expressionHeader);
     table.appendChild(tableRow);
-
-    return variablesNum;
 }
 
-function generateRows(table, varNum, array) {
+function generateRows(table, varNum, expression) {
     const rowNum = Math.pow(2, varNum);
     const binaryCombinations = generateBinary(varNum);
 
@@ -55,12 +48,11 @@ function generateRows(table, varNum, array) {
             tableDiv.innerHTML = binaryCombinations[row].charAt(col);
             tableRow.appendChild(tableDiv);
         }
-        
+
         let resultDiv = document.createElement("td");
         let values = binaryCombinations[row];
-        const binaryExpression = variableToValues(array, values);
 
-        resultDiv.innerHTML = solve(binaryExpression);
+        resultDiv.innerHTML = solve(expression, values);
         tableRow.appendChild(resultDiv);
         table.appendChild(tableRow);
     }
