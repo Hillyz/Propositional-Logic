@@ -1,5 +1,4 @@
 
-
 export function generateBinary(n) {
     const combinations = [];
     const totalCombinations = Math.pow(2, n);
@@ -23,6 +22,18 @@ export function assert(predicate) {
 export function isBinary(str) {
     if (str.length === 1 && str.match(/[0-1]/i)) return true;
     return false;
+}
+
+export function getUniqueVars(expression) {
+    let uniqueVars = new Set();
+
+    for (let i = 0; i < expression.length; i++) {
+        const token = expression.charAt(i);
+        if (!NONVARIABLES.includes(token) && !uniqueVars.has(token)) {
+            uniqueVars.add(token);
+        }
+    }
+    return uniqueVars;
 }
 
 //https://stackoverflow.com/questions/11076975/how-to-insert-text-into-the-textarea-at-the-current-cursor-position
