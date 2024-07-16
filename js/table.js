@@ -1,6 +1,5 @@
-import { solve, variableToValues } from "./logic.js";
+import { solve } from "./logic.js";
 import { generateBinary, getUniqueVars } from "./utils.js";
-import { NONVARIABLES } from "./constants.js";
 
 export function generateTable(expression) {
     if (document.getElementById("table") !== null) {

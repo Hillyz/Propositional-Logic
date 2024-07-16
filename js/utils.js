@@ -1,4 +1,4 @@
-import { NONVARIABLES } from "./constants";
+import { NONVARIABLES } from "./constants.js";
 
 export function generateBinary(n) {
     const combinations = [];
