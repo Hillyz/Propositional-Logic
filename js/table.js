@@ -38,21 +38,31 @@ function generateHeadRow(table, expression) {
 function generateRows(table, varNum, expression) {
     const rowNum = Math.pow(2, varNum);
     const binaryCombinations = generateBinary(varNum);
+    addToMap(expression, binaryCombinations);
 
     for (let row = 0; row < rowNum; row++) {
         let tableRow = document.createElement("tr");
         let tableDiv;
         for (let col = 0; col < varNum; col++) {
             tableDiv = document.createElement("td");
-            tableDiv.innerHTML = binaryCombinations[row].charAt(col);
+            tableDiv.innerHTML = binaryCombinations[row][col];
             tableRow.appendChild(tableDiv);
         }
 
         let resultDiv = document.createElement("td");
         let values = binaryCombinations[row];
 
-        resultDiv.innerHTML = solve(expression, values);
+        const result = solve(expression, values);
+        expressionValues.get(expression)[row].push(result.toString());
+
+        resultDiv.innerHTML = result;
         tableRow.appendChild(resultDiv);
         table.appendChild(tableRow);
     }
 }
+
+function addToMap(expression, values) {
+    expressionValues.set(expression, values);
+    console.log(expressionValues);
+}
+const expressionValues = new Map();

@@ -12,8 +12,8 @@ export function variableToValues(expression, binaryCombinations) {
             if (token in usedVariables) {
                 newExp += usedVariables[token];
             } else {
-                newExp += binaryCombinations.charAt(varIndex);
-                usedVariables[token] = binaryCombinations.charAt(varIndex);
+                newExp += binaryCombinations[varIndex];
+                usedVariables[token] = binaryCombinations[varIndex];
                 varIndex++;
             }
             continue;
@@ -93,6 +93,7 @@ function toRPN(expression) {
 
 export function solve(expression, values) {
     const solvableExpression = toRPN(variableToValues(expression, values));
+
     const stack = [];
 
     for (let i = 0; i < solvableExpression.length; i++) {

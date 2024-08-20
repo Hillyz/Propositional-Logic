@@ -5,10 +5,10 @@ export function generateBinary(n) {
     const totalCombinations = Math.pow(2, n);
 
     for (let i = 0; i < totalCombinations; i++) {
-        let binary = "";
+        let binary = [];
         for (let j = n - 1; j >= 0; j--) {
             let bit = (i >> j) & 1; 
-            binary += bit.toString();
+            binary.push(bit.toString());
         }
         combinations.push(binary);
     }
