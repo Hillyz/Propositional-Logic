@@ -38,7 +38,9 @@ function generateHeadRow(table, expression) {
 function generateRows(table, varNum, expression) {
     const rowNum = Math.pow(2, varNum);
     const binaryCombinations = generateBinary(varNum);
-    addToMap(expression, binaryCombinations);
+
+    if (!expressionValues.has(expression))
+        addToMap(expression, binaryCombinations);
 
     for (let row = 0; row < rowNum; row++) {
         let tableRow = document.createElement("tr");
