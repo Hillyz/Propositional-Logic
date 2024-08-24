@@ -44,8 +44,25 @@ form {
 }
 
 #label {
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #333;
+}
+
+#logicdiv {
+  position: relative;
+  height: 228px;
+}
+
+#expressionsdiv {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+
+}
+
+#result {
+  position: absolute;
+  bottom: 0px;
 }
 
 .inputString {
