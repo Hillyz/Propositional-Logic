@@ -1,7 +1,12 @@
+import { expressionIsValid } from "./logic.js";
+import { assert } from "./utils.js";
 
 export const expressions = new Set();
 
 export function addToSet(expression) {
+    const checkExpression = expression.replace(/\s+/g, '').split(/([\→\∨\∧\¬\(\)])/).filter(token => token);
+    
+    assert(expressionIsValid(checkExpression));
     if (expressions.has(expression)) return;
     expressions.add(expression);
 
@@ -25,7 +30,7 @@ export function addToSet(expression) {
     });
     newDiv.appendChild(delButton);
 
-    document.getElementById("setForm").appendChild(newDiv);
+    document.getElementById("expressionsdiv").appendChild(newDiv);
 }
 
 function removeFromSet(expression) {

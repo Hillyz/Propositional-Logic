@@ -22,7 +22,13 @@ function getInput() {
         event.preventDefault();
         const inputString = document.getElementById('inputString').value;
         expression = inputString.replace(/\s+/g, '');
-        addToSet(expression);
+        document.getElementById('label').innerText = "Enter a logical expression:";
+        try{
+            addToSet(expression);
+        } catch (err) {
+            document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
+            console.log(err);
+        }
     });
 
     document.getElementById("clearbutton").addEventListener("click", () => {

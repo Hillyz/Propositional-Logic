@@ -116,7 +116,7 @@ export function solve(expression, values) {
     return stack;
 }
 
-function expressionIsValid(expression) {
+export function expressionIsValid(expression) {
     const invalidDoubles = ['→', '∨', '∧'];
 
     if (expression.length === 0) return false;
