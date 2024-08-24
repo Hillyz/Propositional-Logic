@@ -1,12 +1,13 @@
+import { addToSet, clear } from "./consequence.js";
 import { generateTable } from "./table.js";
 import { addConnective } from "./utils.js";
-import { expressions, addToSet } from "./consequence.js";
 
 function getInput() {
-    document.getElementById('stringForm').addEventListener('submit', function (event) {
+    let expression;
+    document.getElementById('stringForm').addEventListener('submit', (event) => {
         event.preventDefault();
         const inputString = document.getElementById('inputString').value;
-        const expression = inputString.replace(/\s+/g, '');
+        expression = inputString.replace(/\s+/g, '');
         document.getElementById('label').innerText = "Enter a logical expression:";
         try {
             generateTable(expression);
@@ -14,11 +15,19 @@ function getInput() {
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
             console.log(err);
         }
-        document.getElementById("setbutton").addEventListener("click", () => {
-        addToSet(expression);
-        console.log(expressions);
-    }, false);
+        
     });
+    
+    document.getElementById("setbutton").addEventListener("click", (event) => {
+        event.preventDefault();
+        const inputString = document.getElementById('inputString').value;
+        expression = inputString.replace(/\s+/g, '');
+        addToSet(expression);
+    });
+
+    document.getElementById("clearbutton").addEventListener("click", () => {
+        clear();
+    })
 }
 
 function buttonEvents() {
@@ -34,7 +43,6 @@ function buttonEvents() {
     document.getElementById("→").addEventListener("click", () => {
         addConnective('→');
     }, false);
-    
 }
 
 function main() {

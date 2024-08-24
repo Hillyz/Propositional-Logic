@@ -40,6 +40,7 @@ form {
 
 #setForm {
   width: 250px;
+  height: 228px;
 }
 
 #label {
@@ -47,7 +48,7 @@ form {
   color: #333;
 }
 
-#inputString {
+.inputString {
   width: calc(100% - 22px);
   padding: 10px;
   margin: 10px 0;
@@ -85,6 +86,16 @@ form {
 
 .generatorbutton:hover {
   background-color: #218838;
+}
+
+.delbutton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.expressiondiv {
+  display: block;
 }
 
 #table {

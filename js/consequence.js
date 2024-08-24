@@ -2,10 +2,41 @@
 export const expressions = new Set();
 
 export function addToSet(expression) {
+    if (expressions.has(expression)) return;
     expressions.add(expression);
+
+    const newDiv = document.createElement("div");
+    newDiv.setAttribute("name", "expressiondiv");
+    newDiv.setAttribute("class", "expressiondiv");
+
     const newExpression = document.createElement("label");
-    newExpression.setAttribute("for", "setform");
-    document.getElementById("setForm").appendChild(newExpression);
+    newExpression.setAttribute("class", "expression");
+    newExpression.innerHTML = expression; 
+    newDiv.appendChild(newExpression);
+
+    const delButton = document.createElement("button");
+    delButton.setAttribute("class", "delbutton");
+    delButton.setAttribute("type", "button");
+    delButton.setAttribute("id", "❌");
+    delButton.innerHTML = "❌";
+    delButton.addEventListener("click", () => {
+        removeFromSet(expression);
+        newDiv.remove();
+    });
+    newDiv.appendChild(delButton);
+
+    document.getElementById("setForm").appendChild(newDiv);
+}
+
+function removeFromSet(expression) {
+    expressions.delete(expression);
+}
+
+export function clear() {
+    const divs = document.getElementsByClassName("expressiondiv");
+    while (divs.length > 0) 
+        divs[0].parentNode.removeChild(divs[0]);
+    expressions.clear();
 }
 
 function isLogicalConsequence(expression) {
