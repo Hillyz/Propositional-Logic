@@ -58,3 +58,35 @@ function isLogicalConsequence(expression) {
             as a tautology is a logical consequence of everything*/
     // Else return false
 }
+
+let active = false;
+
+export function showHelp() {
+    if (active) {
+        document.getElementById("helptext").remove();
+        active = false;
+        return;
+    }
+    active = true;
+
+    const textDiv = document.createElement("div");
+    textDiv.setAttribute("id", "helptext");
+
+    const title = document.createElement("h3");
+    title.innerHTML = "Logical consequence explained"
+
+    const p1 = document.createElement("p");
+    p1.innerHTML = `Logical consequence is defined by what follows a set of prerequisites. For example if a prerequisite is that P and Q both are true (P∧Q), 
+    then the logical consequence that follows is that P must also be true. This means that P is a logical consequence of P∨Q. However if the prerequisite is that either P or Q (P∨Q) is true,
+    then we can't conclude whether P is true or not. Therefore P is not a logical consequence of P∨Q.`
+
+    const p2 = document.createElement("p");
+    p2.innerHTML = `Here you can add expressions to a set, and see if your expression is a logical consequence of that set or not.`
+
+    textDiv.appendChild(title);
+    textDiv.appendChild(p1);
+    textDiv.appendChild(p2);
+
+    document.getElementById("container").appendChild(textDiv);
+
+}

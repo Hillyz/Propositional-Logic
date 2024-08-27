@@ -1,4 +1,4 @@
-import { addToSet, clear } from "./consequence.js";
+import { addToSet, clear, showHelp } from "./consequence.js";
 import { generateTable } from "./table.js";
 import { addConnective } from "./utils.js";
 
@@ -39,16 +39,19 @@ function getInput() {
 function buttonEvents() {
     document.getElementById("¬").addEventListener("click", () => {
         addConnective('¬');
-    }, false);
+    });
     document.getElementById("∧").addEventListener("click", () => {
         addConnective('∧');
-    }, false);
+    });
     document.getElementById("∨").addEventListener("click", () => {
         addConnective('∨');
-    }, false);
+    });
     document.getElementById("→").addEventListener("click", () => {
         addConnective('→');
-    }, false);
+    });
+    document.getElementById("helpbutton").addEventListener("click", () => {
+        showHelp();
+    });
 }
 
 function main() {
