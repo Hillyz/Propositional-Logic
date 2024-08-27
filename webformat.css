@@ -121,6 +121,14 @@ form {
   background-color: #218838;
 }
 
+#helpbutton {
+  text-align: center;
+  border-radius: 50%;
+  border-width: 1px;
+  cursor: help;
+  transition: background-color 0.3s;
+}
+
 .delbutton {
   background-color: transparent;
   border: none;
