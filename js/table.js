@@ -65,6 +65,5 @@ function generateRows(table, varNum, expression) {
 
 function addToMap(expression, values) {
     expressionValues.set(expression, values);
-    console.log(expressionValues);
 }
-const expressionValues = new Map();
+export const expressionValues = new Map();

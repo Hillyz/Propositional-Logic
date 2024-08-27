@@ -1,4 +1,4 @@
-import { addToSet, clear, showHelp } from "./consequence.js";
+import { addToSet, clear, logicalConsequence, showHelp } from "./consequence.js";
 import { generateTable } from "./table.js";
 import { addConnective } from "./utils.js";
 
@@ -11,6 +11,7 @@ function getInput() {
         document.getElementById('label').innerText = "Enter a logical expression:";
         try {
             generateTable(expression);
+            logicalConsequence(expression);
         } catch (err) {
             document.getElementById('label').innerText = "Enter a logical expression: Invalid expression";
             console.log(err);

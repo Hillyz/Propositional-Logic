@@ -1,5 +1,6 @@
-import { expressionIsValid } from "./logic.js";
-import { assert } from "./utils.js";
+import { expressionIsValid, solve } from "./logic.js";
+import { expressionValues } from "./table.js";
+import { assert, getUniqueVars } from "./utils.js";
 
 export const expressions = new Set();
 
@@ -44,19 +45,67 @@ export function clear() {
     expressions.clear();
 }
 
+export function logicalConsequence(expression) {
+    const lc = isLogicalConsequence(expression);
+    console.log(lc);
+    if (lc) {
+        document.getElementById("result").innerHTML = `A ⊨ ` + expression;
+        document.getElementById("result").setAttribute("style", "background-color: #16a34a")
+    } else if (lc === false) {
+        document.getElementById("result").innerHTML = `Not a logical consequence`;
+        document.getElementById("result").setAttribute("style", "background-color: #ef4444");
+    } else {
+        document.getElementById("result").innerHTML = "Is your expression a logical consequence?";
+        document.getElementById("result").setAttribute("style", "background-color: #e4e4e7");
+    }
+}
+
 function isLogicalConsequence(expression) {
-    // First attribute values to all expressions in set
-        //We need to find all values that make the entire set true
-        //If there are contradictions, return true as everything is a logical consequence of contradictions
+    if (expressions.size === 0) return null;
+    console.log(expressions);
+    console.log(expressionValues);
+    const setVariables = new Map();
     
     for (const ex of expressions) {
-    }
+        console.log("looking at " + ex);
+        const vals = expressionValues.get(ex);
+        const uniqueVars = []
+        getUniqueVars(ex).forEach(x => uniqueVars.push(x));
 
-    // Then use those values to check if the expression is true
-    // If the expression is true using the true values from the set, return true
-        /*If the expression is a tautology, always return true 
-            as a tautology is a logical consequence of everything*/
-    // Else return false
+        //How does logical consequence work when the set is invalid? -> How to check if set is invalid
+
+        //FIX: expressions need to be solved when added to set!!
+        
+        for (const val of vals) {
+            console.log(val);
+            if (val[val.length-1] === "1") {
+                console.log("True evaluation");
+                const evals = val.slice(0, -1);
+                for (let i = 0; i < evals.length; i++) {
+                    const evaluation = evals[i];
+                    const uniqueVar = uniqueVars[i];
+                    setVariables.set(uniqueVar, evaluation);
+                }
+            }
+        }
+        console.log(setVariables);
+        const expressionVars = [];
+        getUniqueVars(expression).forEach(x => expressionVars.push(x));
+        const relevantVars = [];
+        setVariables.forEach((_value, key) => {
+            if (expressionVars.includes(key)) {
+                console.log("relevant key: " + key);
+                relevantVars.push(setVariables.get(key));
+            }
+        })
+
+        console.log("\n----solve----\n");
+        console.log("expression: " + expression);
+        console.log("variables: " + relevantVars);
+        console.log("\n----solve----\n");
+        
+        return solve(expression, relevantVars).toString() === '1';
+    }
 }
 
 let active = false;
@@ -81,7 +130,8 @@ export function showHelp() {
     then we can't conclude whether P is true or not. Therefore P is not a logical consequence of P∨Q.`
 
     const p2 = document.createElement("p");
-    p2.innerHTML = `Here you can add expressions to a set, and see if your expression is a logical consequence of that set or not.`
+    p2.innerHTML = `Here you can add expressions to a set, and see if your expression is a logical consequence of that set or not. We use the token ⊨  to show that an expression is a logical
+    consequence. For example set A={P∧Q}. A ⊨  P. `
 
     textDiv.appendChild(title);
     textDiv.appendChild(p1);
