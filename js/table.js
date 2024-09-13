@@ -55,8 +55,9 @@ function generateRows(table, varNum, expression) {
         let values = binaryCombinations[row];
 
         const result = solve(expression, values);
-        expressionValues.get(expression)[row].push(result.toString());
-
+        if (expressionValues.get(expression)[row].length < varNum+1)
+            expressionValues.get(expression)[row].push(result.toString());
+        
         resultDiv.innerHTML = result;
         tableRow.appendChild(resultDiv);
         table.appendChild(tableRow);

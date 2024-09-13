@@ -1,6 +1,6 @@
 import { expressionIsValid, solve } from "./logic.js";
 import { expressionValues } from "./table.js";
-import { assert, getUniqueVars } from "./utils.js";
+import { assert, generateBinary, getUniqueVars } from "./utils.js";
 
 export const expressions = new Set();
 
@@ -10,6 +10,21 @@ export function addToSet(expression) {
     assert(expressionIsValid(checkExpression));
     if (expressions.has(expression)) return;
     expressions.add(expression);
+
+    if (!expressionValues.has(expression)) {
+        const varNum = getUniqueVars(expression).size;
+        const rowNum = Math.pow(varNum, 2);
+        const binaryCombinations = generateBinary(varNum);
+        expressionValues.set(expression, binaryCombinations);
+
+        for (let row = 0; row < rowNum; row++) {
+            const res = solve(expression, binaryCombinations[row]);
+            
+            if (expressionValues.get(expression)[row].length < varNum+1)
+                expressionValues.get(expression)[row].push(res.toString());
+        }
+        console.log(expressionValues);
+    }
 
     const newDiv = document.createElement("div");
     newDiv.setAttribute("name", "expressiondiv");
