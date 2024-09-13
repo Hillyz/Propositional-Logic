@@ -11,20 +11,7 @@ export function addToSet(expression) {
     if (expressions.has(expression)) return;
     expressions.add(expression);
 
-    if (!expressionValues.has(expression)) {
-        const varNum = getUniqueVars(expression).size;
-        const rowNum = Math.pow(varNum, 2);
-        const binaryCombinations = generateBinary(varNum);
-        expressionValues.set(expression, binaryCombinations);
-
-        for (let row = 0; row < rowNum; row++) {
-            const res = solve(expression, binaryCombinations[row]);
-            
-            if (expressionValues.get(expression)[row].length < varNum+1)
-                expressionValues.get(expression)[row].push(res.toString());
-        }
-        console.log(expressionValues);
-    }
+    solveNewExpression(expression);
 
     const newDiv = document.createElement("div");
     newDiv.setAttribute("name", "expressiondiv");
@@ -47,6 +34,37 @@ export function addToSet(expression) {
     newDiv.appendChild(delButton);
 
     document.getElementById("expressionsdiv").appendChild(newDiv);
+}
+
+function solveNewExpression(expression) {
+    if (!expressionValues.has(expression)) {
+        const varNum = getUniqueVars(expression).size;
+        const rowNum = Math.pow(varNum, 2);
+        const binaryCombinations = generateBinary(varNum);
+        expressionValues.set(expression, binaryCombinations);
+
+        for (let row = 0; row < rowNum; row++) {
+            const res = solve(expression, binaryCombinations[row]);
+
+            if (expressionValues.get(expression)[row].length < varNum + 1)
+                expressionValues.get(expression)[row].push(res.toString());
+        }
+        console.log(expressionValues);
+    } 
+    if (!expressionValues.has(expression)) {
+        const varNum = getUniqueVars(expression).size;
+        const rowNum = Math.pow(varNum, 2);
+        const binaryCombinations = generateBinary(varNum);
+        expressionValues.set(expression, binaryCombinations);
+
+        for (let row = 0; row < rowNum; row++) {
+            const res = solve(expression, binaryCombinations[row]);
+
+            if (expressionValues.get(expression)[row].length < varNum + 1)
+                expressionValues.get(expression)[row].push(res.toString());
+        }
+        console.log(expressionValues);
+    }
 }
 
 function removeFromSet(expression) {
