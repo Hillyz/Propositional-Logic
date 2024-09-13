@@ -1,6 +1,6 @@
 import { expressionIsValid, solve } from "./logic.js";
 import { expressionValues } from "./table.js";
-import { assert, generateBinary, getUniqueVars } from "./utils.js";
+import { assert, generateBinary, getUniqueVars, removeItemOnce } from "./utils.js";
 
 export const expressions = new Set();
 
@@ -104,10 +104,6 @@ function isLogicalConsequence(expression) {
         const vals = expressionValues.get(ex);
         const uniqueVars = []
         getUniqueVars(ex).forEach(x => uniqueVars.push(x));
-
-        //How does logical consequence work when the set is invalid? -> How to check if set is invalid
-
-        //FIX: expressions need to be solved when added to set!!
         
         for (const val of vals) {
             console.log(val);
@@ -124,22 +120,79 @@ function isLogicalConsequence(expression) {
         console.log(setVariables);
         const expressionVars = [];
         getUniqueVars(expression).forEach(x => expressionVars.push(x));
+        let relevantValues = [];
         const relevantVars = [];
         setVariables.forEach((_value, key) => {
             if (expressionVars.includes(key)) {
                 console.log("relevant key: " + key);
-                relevantVars.push(setVariables.get(key));
+                relevantValues.push(setVariables.get(key));
+                relevantVars.push(key);
             }
         })
 
         console.log("\n----solve----\n");
         console.log("expression: " + expression);
-        console.log("variables: " + relevantVars);
+        console.log("variables: " + relevantValues);
         console.log("\n----solve----\n");
+
+        if (relevantValues.length === 0) return false;
         
-        return solve(expression, relevantVars).toString() === '1';
+        if (relevantValues.length < expressionVars.length) {
+            console.log("Expression longer than set expression");
+            relevantValues = fulfillRelevantVars(expression, relevantValues, relevantVars);
+
+            for (const row of relevantValues) {
+                if (solve(expression, row) === '0') return false;
+            }
+            return true;
+        }
+        
+        return solve(expression, relevantValues).toString() === '1';
     }
 }
+
+function fulfillRelevantVars(expression, relevantValues, relevantVars) {
+    const uniqueVars = [];
+    getUniqueVars(expression).forEach(x => uniqueVars.push(x));
+    console.log(uniqueVars + " vs " + relevantVars);
+
+    const lockedValues = [];
+    for (let i = 0; i < uniqueVars.length; i++) {
+        const element = uniqueVars[i];
+        if (relevantVars.includes(element)) {
+            lockedValues.push(i);
+        }
+    }
+    
+    console.log("RELEVANT VARS: " + relevantVars);
+    console.log("RELEVANT VALUES: " + relevantValues);
+    console.log("LOCKED INDEX: " + lockedValues);
+    
+
+    const binary = generateBinary(uniqueVars.length);
+    
+    const toBeRemoved = []
+
+    for (const row of binary) {
+        for (let j = 0; j < row.length; j++) {
+            const value = row[j];
+            if (lockedValues.includes(j) ) {
+                if (value !== relevantValues[j]) {
+                    console.log("removing :" + row);
+                    toBeRemoved.push(row);
+                }
+            }
+        }
+    }
+
+    for (const element of toBeRemoved) {
+        removeItemOnce(binary, element);
+    }
+
+    console.log(binary);
+    return binary;
+}
+
 
 let active = false;
 

@@ -92,6 +92,8 @@ function toRPN(expression) {
 };
 
 export function solve(expression, values) {
+    console.log("(Inside solving function) expression and values: " + expression + " " + values);
+    
     const solvableExpression = toRPN(variableToValues(expression, values));
 
     const stack = [];
@@ -113,6 +115,7 @@ export function solve(expression, values) {
             }
         }
     }
+    console.log("(Inside solving function) result: " + stack);
     return stack;
 }
 
