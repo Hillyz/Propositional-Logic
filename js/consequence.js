@@ -39,7 +39,7 @@ export function addToSet(expression) {
 function solveNewExpression(expression) {
     if (!expressionValues.has(expression)) {
         const varNum = getUniqueVars(expression).size;
-        const rowNum = Math.pow(varNum, 2);
+        const rowNum = (varNum === 1) ? 2 : Math.pow(varNum, 2);
         const binaryCombinations = generateBinary(varNum);
         expressionValues.set(expression, binaryCombinations);
 
@@ -51,20 +51,6 @@ function solveNewExpression(expression) {
         }
         console.log(expressionValues);
     } 
-    if (!expressionValues.has(expression)) {
-        const varNum = getUniqueVars(expression).size;
-        const rowNum = Math.pow(varNum, 2);
-        const binaryCombinations = generateBinary(varNum);
-        expressionValues.set(expression, binaryCombinations);
-
-        for (let row = 0; row < rowNum; row++) {
-            const res = solve(expression, binaryCombinations[row]);
-
-            if (expressionValues.get(expression)[row].length < varNum + 1)
-                expressionValues.get(expression)[row].push(res.toString());
-        }
-        console.log(expressionValues);
-    }
 }
 
 function removeFromSet(expression) {
@@ -142,7 +128,7 @@ function isLogicalConsequence(expression) {
             relevantValues = fulfillRelevantVars(expression, relevantValues, relevantVars);
 
             for (const row of relevantValues) {
-                if (solve(expression, row) === '0') return false;
+                if (solve(expression, row).toString() === '0') return false;
             }
             return true;
         }
