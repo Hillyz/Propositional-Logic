@@ -92,9 +92,7 @@ function isLogicalConsequence(expression) {
         getUniqueVars(ex).forEach(x => uniqueVars.push(x));
         
         for (const val of vals) {
-            console.log(val);
             if (val[val.length-1] === "1") {
-                console.log("True evaluation");
                 const evals = val.slice(0, -1);
                 for (let i = 0; i < evals.length; i++) {
                     const evaluation = evals[i];
@@ -153,17 +151,15 @@ function fulfillRelevantVars(expression, relevantValues, relevantVars) {
     console.log("RELEVANT VARS: " + relevantVars);
     console.log("RELEVANT VALUES: " + relevantValues);
     console.log("LOCKED INDEX: " + lockedValues);
-    
 
     const binary = generateBinary(uniqueVars.length);
-    
     const toBeRemoved = []
 
     for (const row of binary) {
         for (let j = 0; j < row.length; j++) {
             const value = row[j];
             if (lockedValues.includes(j) ) {
-                if (value !== relevantValues[j]) {
+                if (value !== "1") {
                     console.log("removing :" + row);
                     toBeRemoved.push(row);
                 }
