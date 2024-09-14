@@ -11,15 +11,30 @@
 <body>
 
     <h1>Propositional Logic Calculator</h1>
-    <form id="stringForm">
-        <label id="label" for="inputString">Enter a logical expression:</label><br>
-        <input type="text" id="inputString" name="inputString"><br>
-        <button  type="button" id="¬" class="cbutton">¬</button>
-        <button  type="button" id="∧" class="cbutton">∧</button>
-        <button  type="button" id="∨" class="cbutton">∨</button>
-        <button  type="button" id="→" class="cbutton">→</button><br><br>
-        <input type="submit" class="generatorbutton" value="Generate">
-    </form>
+    <div class="container" id="container">
+        <form class="form" id="stringForm">
+            <label for="inputString" id="label">Enter a logical expression:</label><br>
+            <input type="text" id="inputString" class="inputString"><br>
+            <button type="button" id="¬" class="cbutton">¬</button>
+            <button type="button" id="∧" class="cbutton">∧</button>
+            <button type="button" id="∨" class="cbutton">∨</button>
+            <button type="button" id="→" class="cbutton">→</button><br><br>
+            <input type="submit" class="generatorbutton" value="Generate table">
+            <input type="button" id="setbutton" class="generatorbutton" value="Add to set">
+            <input type="button" id="clearbutton" class="generatorbutton" value="Clear set">
+        </form>
+        <form class="form" id="setForm">
+            <div id="logicdiv">
+                <label for="setForm" id="label">Logical consequence</label>
+                <button type="button" id="helpbutton">?</button><br>
+                <div >
+                    <label>Set A:</label>
+                    <div id="expressionsdiv"></div>
+                </div>
+                <div id="result">Is your expression a logical consequence?</div>
+            </div>
+        </form>
+    </div>
     <br><br>
 
     <script type="module" src="./js/main.js"></script>

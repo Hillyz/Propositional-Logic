@@ -1,22 +1,24 @@
 import { NONVARIABLES, operators } from "./constants.js";
 import { assert, isBinary } from "./utils.js";
 
-export function variableToValues(array, binaryCombinations) {
+export function variableToValues(expression, binaryCombinations) {
     let newExp = '';
     let usedVariables = {};
-    let i = 0;
-    for (const element of array) {
-        if (!NONVARIABLES.includes(element)) {
-            if (element in usedVariables) {
-                newExp += usedVariables[element];
+    let varIndex = 0;
+
+    for (let i = 0; i < expression.length; i++) {
+        const token = expression.charAt(i);
+        if (!NONVARIABLES.includes(token)) {
+            if (token in usedVariables) {
+                newExp += usedVariables[token];
             } else {
-                newExp += binaryCombinations.charAt(i);
-                usedVariables[element] = binaryCombinations.charAt(i);
-                i++;
+                newExp += binaryCombinations[varIndex];
+                usedVariables[token] = binaryCombinations[varIndex];
+                varIndex++;
             }
             continue;
         }
-        newExp += element;
+        newExp += token;
     }
     return newExp;
 }
@@ -89,12 +91,15 @@ function toRPN(expression) {
     return output;
 };
 
-export function solve(expression) {
-    const postfix = toRPN(expression);
+export function solve(expression, values) {
+    console.log("(Inside solving function) expression and values: " + expression + " " + values);
+    
+    const solvableExpression = toRPN(variableToValues(expression, values));
+
     const stack = [];
 
-    for (let i = 0; i < postfix.length; i++) {
-        const token = postfix[i];
+    for (let i = 0; i < solvableExpression.length; i++) {
+        const token = solvableExpression[i];
         if (isBinary(token)) {
             stack.push(token);
         } else {
@@ -110,10 +115,11 @@ export function solve(expression) {
             }
         }
     }
+    console.log("(Inside solving function) result: " + stack);
     return stack;
 }
 
-function expressionIsValid(expression) {
+export function expressionIsValid(expression) {
     const invalidDoubles = ['→', '∨', '∧'];
 
     if (expression.length === 0) return false;

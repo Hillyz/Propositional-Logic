@@ -14,6 +14,15 @@ h1 {
   color: #00509e;
 }
 
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 50px;
+}
+
 form {
   background: #fff;
   padding: 20px;
@@ -24,12 +33,65 @@ form {
   max-width: 600px;
 }
 
+#stringForm {
+  width: 500px;
+  margin-right: auto;
+}
+
+#setForm {
+  width: 250px;
+  height: 228px;
+}
+
+#helptext {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  width: 90%;
+  max-width: 400px;
+}
+
 #label {
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #333;
 }
 
-#inputString {
+#logicdiv {
+  position: relative;
+  height: 228px;
+  width: 250px;
+}
+
+#expressionsdiv {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  position: relative;
+  overflow: auto;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 5px;
+  max-height: 120px;
+  min-height: 120px;
+  border-color: #c084fc;
+  background-color: #e4e4e7;
+}
+
+#result {
+  position: absolute;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  border-spacing: 1px;
+  width: inherit;
+  min-width: inherit;
+  text-align: center;
+  background-color: #e4e4e7;
+  bottom: 0px;
+}
+
+.inputString {
   width: calc(100% - 22px);
   padding: 10px;
   margin: 10px 0;
@@ -69,14 +131,34 @@ form {
   background-color: #218838;
 }
 
+#helpbutton {
+  text-align: center;
+  border-radius: 50%;
+  border-width: 1px;
+  cursor: help;
+  transition: background-color 0.3s;
+}
+
+.delbutton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.expressiondiv {
+  display: block;
+}
+
 #table {
   margin-top: 30px;
+  margin-bottom: 30px;
   width: 90%;
   max-width: 600px;
   border-collapse: collapse;
 }
 
-#table th, #table td {
+#table th,
+#table td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center;
