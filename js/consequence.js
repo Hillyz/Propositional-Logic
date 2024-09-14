@@ -128,11 +128,11 @@ function isLogicalConsequence(expression) {
             for (const row of relevantValues) {
                 if (solve(expression, row).toString() === '0') return false;
             }
-            return true;
+            continue;
         }
-        
-        return solve(expression, relevantValues).toString() === '1';
+        if( solve(expression, relevantValues).toString() === '0') return false;
     }
+    return true;
 }
 
 function fulfillRelevantVars(expression, relevantValues, relevantVars) {
